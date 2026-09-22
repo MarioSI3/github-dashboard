@@ -5,13 +5,22 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mario.github_dashboard.service.RepositoryService;
+
 @RestController 
-@RequestMapping("/api/repositories")
+@RequestMapping("/api/users")
 public class RepositoryController {
 
-    @GetMapping("/{owner}/{repoName}")
-    public String getRepository(@PathVariable String owner, @PathVariable String repoName) {
-        return "Repository: " + owner + "/" + repoName;
+    private final RepositoryService repositoryService;
+
+    public RepositoryController(RepositoryService repositoryService){
+        this.repositoryService = repositoryService;
+    }
+
+    @GetMapping("/{owner}/repositories")
+    public String getRepository(@PathVariable String owner) {
+
+        return repositoryService.getRepositories(owner);
     }
 
 }
