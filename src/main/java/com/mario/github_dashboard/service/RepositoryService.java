@@ -3,14 +3,31 @@ import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.mario.github_dashboard.client.GitHubClient;
 import com.mario.github_dashboard.client.response.GitHubRepositoryResponse;
 import com.mario.github_dashboard.dto.RepositoryDTO;
+import com.mario.github_dashboard.dto.UserRepositoriesDTO;
 
 @Service 
 public class RepositoryService {
 
-    public String getRepositories(String username){
-        return "Searching for repositories of " + username;
+    private final GitHubClient gitHubClient;
+
+    public RepositoryService(GitHubClient gitHubClient){
+        this.gitHubClient = gitHubClient;
+    }
+
+    public UserRepositoriesDTO getRepositories(String username){
+
+        List<GitHubRepositoryResponse> repositories = gitHubClient.getRepositories(username);
+
+        List<RepositoryDTO> repositoryDTOs = toRepositoryDTOs(repositories);
+
+        return new UserRepositoriesDTO(
+            username,
+            repositoryDTOs
+        );
+
     }
 
     //Map the information given by github API to our DTO

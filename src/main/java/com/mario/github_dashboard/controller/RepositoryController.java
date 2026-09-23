@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.mario.github_dashboard.dto.UserRepositoriesDTO;
 import com.mario.github_dashboard.service.RepositoryService;
 
 @RestController 
@@ -18,7 +19,7 @@ public class RepositoryController {
     }
 
     @GetMapping("/{owner}/repositories")
-    public String getRepository(@PathVariable String owner) {
+    public UserRepositoriesDTO getRepositories(@PathVariable String owner) {
 
         return repositoryService.getRepositories(owner);
     }
