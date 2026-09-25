@@ -26,23 +26,77 @@ function App() {
     }
   }
 
-  return (
-    <main>
-      <h1 className="text-4xl font-bold text-blue-500">
-        GitHub Repository Dashboard
-      </h1>
+return (
+  <div className="min-h-screen bg-slate-950 text-white">
 
-      <RepositorySearch onSearch={handleSearch} />
+    {/* Header */}
+    <header className="border-b border-slate-800 bg-slate-900">
+      <div className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
+        <h1 className="text-xl font-bold">
+          GitHub Dashboard
+        </h1>
 
-      {loading && <p>Loading...</p>}
+        <span className="text-sm text-slate-400">
+          Repository Explorer
+        </span>
+      </div>
+    </header>
 
-      {error && <p>{error}</p>}
+    {/* Main */}
+    <main className="mx-auto max-w-6xl px-6 py-10">
 
-      {data && (
-        <RepositoryList repositories={data.repositories} />
+      {/* Hero */}
+      <section className="mb-10 text-center">
+        <h2 className="mb-3 text-4xl font-bold">
+          Explora repositorios de GitHub
+        </h2>
+
+        <p className="mx-auto mb-8 max-w-xl text-slate-400">
+          Introduce un nombre de usuario para consultar sus repositorios,
+          lenguajes, estrellas y forks.
+        </p>
+
+        <RepositorySearch onSearch={handleSearch} />
+      </section>
+
+      {/* Loading */}
+      {loading && (
+        <p className="text-center text-slate-400">
+          Cargando repositorios...
+        </p>
       )}
+
+      {/* Error */}
+      {error && (
+        <div className="mx-auto max-w-xl rounded-lg border border-red-800 bg-red-950 p-4 text-red-300">
+          {error}
+        </div>
+      )}
+
+      {/* Resultados */}
+      {!loading && data && data.repositories.length > 0 && (
+        <section>
+
+          <div className="mb-6 flex items-center justify-between">
+            <h2 className="text-2xl font-semibold">
+              Repositorios de {data.username}
+            </h2>
+
+            <span className="text-sm text-slate-400">
+              {data.repositories.length} repositorios
+            </span>
+          </div>
+
+          <RepositoryList repositories={data.repositories} />
+
+        </section>
+      )}
+
     </main>
-  );
+  </div>
+);
+
+
 }
 
 export default App;
