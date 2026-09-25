@@ -28,7 +28,9 @@ function App() {
 
   return (
     <main>
-      <h1>GitHub Repository Dashboard</h1>
+      <h1 className="text-4xl font-bold text-blue-500">
+        GitHub Repository Dashboard
+      </h1>
 
       <RepositorySearch onSearch={handleSearch} />
 
